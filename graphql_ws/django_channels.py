@@ -1,4 +1,4 @@
-from channels.generic.websockets import JsonWebsocketConsumer
+from channels.generic.websocket import JsonWebsocketConsumer
 from .base import BaseConnectionContext
 import json
 from graphql.execution.executors.sync import SyncExecutor
@@ -17,7 +17,7 @@ from django.conf import settings
 from graphene_django.settings import graphene_settings
 
 class DjangoChannelConnectionContext(BaseConnectionContext):
-    
+
     def __init__(self, message, request_context = None):
         self.message = message
         self.operations = {}
@@ -25,7 +25,7 @@ class DjangoChannelConnectionContext(BaseConnectionContext):
 
     def send(self, data):
         self.message.reply_channel.send(data)
-    
+
     def close(self, reason):
         data = {
             'close': True,
